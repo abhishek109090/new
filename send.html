@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>submit the application</h1>
+    <form id="myform">
+        <label>phone:</label>
+        <input type="text" id="phone" name="phone" required><br>
+        <label>password:</label>
+        <input type="text" id="password" name="password" required><br>
+        <button type="submit">submit</button>
+    </form>
+    <script>
+        document.getElementById('myform').addEventListener('submit',function(event){
+event.preventDefault();
+const phone= document.getElementById('phone').value;
+const password = document.getElementById('password').value;
+const data = {
+    phone: phone,
+    password:password
+}
+
+fetch('http://localhost:5000/postitem',{
+method:'POST',
+headers:{
+    'Content-Type':'application/json'
+},
+body:JSON.stringify(data)
+})
+.then(Response=>Response.json())
+.then(data=>{
+    console.log('success:',data);
+    alert("data inserted successfully")
+
+})
+.catch((error)=>{
+    console.log('error',error);
+    alert('data insertion failed')
+})
+
+        })
+    </script>
+</body>
+</html>
